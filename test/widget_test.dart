@@ -1,11 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:memory_drop/main.dart';
+import 'package:memory_drop/app.dart';
 
 void main() {
-  testWidgets('Memory Drop welcome screen is displayed', (tester) async {
+  testWidgets('Главный экран Memory Drop отображается', (tester) async {
     await tester.pumpWidget(const MemoryDropApp());
 
-    expect(find.text('Memory Drop'), findsOneWidget);
-    expect(find.text('Welcome to Memory Drop'), findsOneWidget);
+    expect(find.text('Капсула воспоминаний'), findsOneWidget);
+    expect(
+      find.text('Оставь воспоминание где-нибудь в мире.'),
+      findsOneWidget,
+    );
   });
 }
