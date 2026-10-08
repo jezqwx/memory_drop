@@ -49,15 +49,16 @@ class _CreateDropScreenState extends State<CreateDropScreen> {
           const SizedBox(height: 28),
           TextField(
             controller: titleController,
+            maxLines: 1,
             decoration: const InputDecoration(
               labelText: 'Название',
               prefixIcon: Icon(Icons.title_rounded),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 28),
           TextField(
             controller: messageController,
-            maxLines: 5,
+            maxLines: 1,
             decoration: const InputDecoration(
               labelText: 'Сообщение',
               alignLabelWithHint: true,

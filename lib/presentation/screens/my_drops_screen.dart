@@ -1,30 +1,49 @@
 import 'package:flutter/material.dart';
 
+import '../../models/memory_drop.dart';
 import 'drop_details_screen.dart';
 
-class MyDropsScreen extends StatelessWidget {
+class MyDropsScreen extends StatefulWidget {
   const MyDropsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final drops = [
-      {
-        'title': 'Наше первое место',
-        'location': 'Алматы',
-        'locked': true,
-      },
-      {
-        'title': 'Воспоминание об университете',
-        'location': 'AlmaU',
-        'locked': false,
-      },
-      {
-        'title': 'Летняя поездка',
-        'location': 'Астана',
-        'locked': true,
-      },
-    ];
+  State<MyDropsScreen> createState() => _MyDropsScreenState();
+}
 
+class _MyDropsScreenState extends State<MyDropsScreen> {
+  List<MemoryDrop> drops = [
+    const MemoryDrop(
+      id: 1,
+      title: 'Наше первое место',
+      location: 'Алматы',
+      locked: true,
+    ),
+    const MemoryDrop(
+      id: 2,
+      title: 'Воспоминание об университете',
+      location: 'AlmaU',
+      locked: false,
+    ),
+    const MemoryDrop(
+      id: 3,
+      title: 'Летняя поездка',
+      location: 'Астана',
+      locked: true,
+    ),
+  ];
+
+  void toggleFavorite(int index) {
+    setState(() {
+      final drop = drops[index];
+
+      drops[index] = drop.copyWith(
+        isFavorite: !drop.isFavorite,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -43,10 +62,6 @@ class MyDropsScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final drop = drops[index];
 
-          final title = drop['title'] as String;
-          final location = drop['location'] as String;
-          final locked = drop['locked'] as bool;
-
           return InkWell(
             borderRadius: BorderRadius.circular(24),
             onTap: () {
@@ -54,7 +69,9 @@ class MyDropsScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) => DropDetailsScreen(
-                    title: title,
+                    title: drop.title,
+                    location: drop.location,
+                    locked: drop.locked,
                   ),
                 ),
               );
@@ -71,7 +88,7 @@ class MyDropsScreen extends StatelessWidget {
                     width: 58,
                     height: 58,
                     decoration: BoxDecoration(
-                      color: locked
+                      color: drop.locked
                           ? Theme.of(context)
                               .colorScheme
                               .secondaryContainer
@@ -81,7 +98,7 @@ class MyDropsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(18),
                     ),
                     child: Icon(
-                      locked
+                      drop.locked
                           ? Icons.lock_outline
                           : Icons.lock_open_rounded,
                     ),
@@ -92,7 +109,7 @@ class MyDropsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          drop.title,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -106,16 +123,16 @@ class MyDropsScreen extends StatelessWidget {
                               size: 16,
                             ),
                             const SizedBox(width: 4),
-                            Text(location),
+                            Text(drop.location),
                           ],
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          locked ? 'Закрыто' : 'Доступно',
+                          drop.locked ? 'Закрыто' : 'Доступно',
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
-                            color: locked
+                            color: drop.locked
                                 ? Theme.of(context)
                                     .colorScheme
                                     .secondary
@@ -127,8 +144,18 @@ class MyDropsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Icon(
-                    Icons.chevron_right_rounded,
+                  IconButton(
+                    onPressed: () {
+                      toggleFavorite(index);
+                    },
+                    icon: Icon(
+                      drop.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: drop.isFavorite
+                          ? Colors.red
+                          : null,
+                    ),
                   ),
                 ],
               ),
