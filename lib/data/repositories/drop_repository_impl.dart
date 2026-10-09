@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
+import '../../domain/entities/memory_drop.dart';
+import '../../domain/repositories/drop_repository.dart';
 
-import '../../models/memory_drop.dart';
-
-class DropProvider extends ChangeNotifier {
+class DropRepositoryImpl implements DropRepository {
   final List<MemoryDrop> _drops = [
     const MemoryDrop(
       id: 1,
@@ -24,15 +23,19 @@ class DropProvider extends ChangeNotifier {
     ),
   ];
 
-  List<MemoryDrop> get drops => List.unmodifiable(_drops);
+  @override
+  List<MemoryDrop> getDrops() {
+    return List.unmodifiable(_drops);
+  }
 
-  void toggleFavorite(int id) {
+  @override
+  List<MemoryDrop> toggleFavorite(int id) {
     final index = _drops.indexWhere(
       (drop) => drop.id == id,
     );
 
     if (index == -1) {
-      return;
+      return List.unmodifiable(_drops);
     }
 
     final currentDrop = _drops[index];
@@ -41,6 +44,6 @@ class DropProvider extends ChangeNotifier {
       isFavorite: !currentDrop.isFavorite,
     );
 
-    notifyListeners();
+    return List.unmodifiable(_drops);
   }
 }
