@@ -1,7 +1,10 @@
 import '../entities/memory_drop.dart';
 
 abstract class DropRepository {
-  List<MemoryDrop> getDrops();
+  Future<List<MemoryDrop>> getDrops();
 
-  List<MemoryDrop> toggleFavorite(int id);
+  Future<MemoryDrop> updateFavorite({
+    required int id,
+    required bool isFavorite,
+  });
 }
