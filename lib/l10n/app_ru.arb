@@ -1,0 +1,62 @@
+{
+  "@@locale": "ru",
+
+  "appName": "Memory Drop",
+  "settings": "Настройки",
+  "theme": "Тема",
+  "language": "Язык",
+  "systemTheme": "Системная",
+  "lightTheme": "Светлая",
+  "darkTheme": "Тёмная",
+
+  "homeTitle": "Капсула воспоминаний",
+  "homeSubtitle": "Оставь воспоминание где-нибудь в мире.",
+  "createDrop": "Создать воспоминание",
+  "myMemories": "Мои воспоминания",
+  "profile": "Профиль",
+
+  "searchHint": "Поиск по названию или месту",
+  "nothingFound": "Ничего не найдено",
+  "noMemories": "Воспоминаний пока нет",
+  "retry": "Повторить",
+  "loadError": "Не удалось загрузить воспоминания",
+  "locked": "Закрыто",
+  "available": "Доступно",
+
+  "dropLockedTitle": "Это воспоминание пока закрыто",
+  "dropLockedText": "Чтобы открыть воспоминание, нужно находиться рядом с этим местом.",
+  "dropAvailableTitle": "Воспоминание доступно",
+  "dropAvailableText": "Это воспоминание уже можно открыть.",
+
+  "createTitle": "Создать воспоминание",
+  "titleLabel": "Название",
+  "locationLabel": "Место",
+  "messageLabel": "Сообщение",
+  "save": "Сохранить",
+
+  "profileTitle": "Профиль",
+  "nameLabel": "Имя",
+
+  "themeSystemSubtitle": "Использовать тему устройства",
+  "russian": "Русский",
+  "english": "English",
+
+  "homeHeroDescription": "Создай скрытое послание и вернись к нему позже.",
+"quickActions": "Быстрые действия",
+"createDropSubtitle": "Оставить новое воспоминание",
+"myMemoriesSubtitle": "Просмотреть сохраненные воспоминания",
+"profileSubtitle": "Активность и воспоминания",
+
+"createDescription": "Напишите то, что хотите оставить на память.",
+"locationComingSoon": "Будет добавлено позже",
+"createMemoryButton": "Создать воспоминание",
+"createMemoryComingSoon": "Создание воспоминания будет добавлено позже",
+
+"memoriesCount": "Воспоминания",
+"openedCount": "Открыто",
+"lockedCount": "Заблокировано",
+
+"themeSubtitle": "Системная, светлая или тёмная",
+"languageSubtitle": "Русский / English"
+
+}

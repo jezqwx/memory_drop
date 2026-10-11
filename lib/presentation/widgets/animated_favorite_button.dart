@@ -33,7 +33,7 @@ class AnimatedFavoriteButton extends StatelessWidget {
                 begin: 0,
                 end: isFavorite ? 1 : 0,
               ),
-              duration: const Duration(milliseconds: 350),
+              duration: const Duration(milliseconds: 250),
               curve: isFavorite
                   ? Curves.easeOutBack
                   : Curves.easeInBack,

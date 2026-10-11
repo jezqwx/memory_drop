@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
+
 class CreateDropScreen extends StatefulWidget {
   const CreateDropScreen({super.key});
 
   @override
-  State<CreateDropScreen> createState() => _CreateDropScreenState();
+  State<CreateDropScreen> createState() =>
+      _CreateDropScreenState();
 }
 
-class _CreateDropScreenState extends State<CreateDropScreen> {
+class _CreateDropScreenState
+    extends State<CreateDropScreen> {
   final titleController = TextEditingController();
   final messageController = TextEditingController();
 
@@ -20,96 +24,131 @@ class _CreateDropScreenState extends State<CreateDropScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Создать Воспоминание',
-          style: TextStyle(fontWeight: FontWeight.w700),
+        title: Text(
+          strings.createDrop,
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          const Text(
-            'Создать воспоминание',
-            style: TextStyle(
+          Text(
+            strings.createDrop,
+            style: const TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w700,
             ),
           ),
+
           const SizedBox(height: 8),
+
           Text(
-            'Напишите то, что хотите оставить на память.',
+            strings.createDescription,
             style: TextStyle(
               color: Theme.of(context)
                   .colorScheme
                   .onSurfaceVariant,
             ),
           ),
+
           const SizedBox(height: 28),
+
           TextField(
             controller: titleController,
             maxLines: 1,
-            decoration: const InputDecoration(
-              labelText: 'Название',
-              prefixIcon: Icon(Icons.title_rounded),
+            decoration: InputDecoration(
+              labelText: strings.titleLabel,
+              prefixIcon:
+                  const Icon(Icons.title_rounded),
             ),
           ),
+
           const SizedBox(height: 28),
+
           TextField(
             controller: messageController,
             maxLines: 1,
-            decoration: const InputDecoration(
-              labelText: 'Сообщение',
+            decoration: InputDecoration(
+              labelText: strings.messageLabel,
               alignLabelWithHint: true,
-              prefixIcon: Icon(Icons.notes_rounded),
+              prefixIcon:
+                  const Icon(Icons.notes_rounded),
             ),
           ),
+
           const SizedBox(height: 16),
+
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(24),
+              color:
+                  Theme.of(context).colorScheme.surface,
+              borderRadius:
+                  BorderRadius.circular(24),
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.location_on_outlined),
-                SizedBox(width: 14),
+                const Icon(
+                  Icons.location_on_outlined,
+                ),
+
+                const SizedBox(width: 14),
+
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Location',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
+                        strings.locationLabel,
+                        style: const TextStyle(
+                          fontWeight:
+                              FontWeight.w700,
                         ),
                       ),
-                      SizedBox(height: 4),
-                      Text('Будет добавлено позже'),
+                      const SizedBox(height: 4),
+                      Text(
+                        strings.locationComingSoon,
+                      ),
                     ],
                   ),
                 ),
-                Icon(Icons.chevron_right_rounded),
+
+                const Icon(
+                  Icons.chevron_right_rounded,
+                ),
               ],
             ),
           ),
+
           const SizedBox(height: 28),
+
           SizedBox(
             height: 54,
             child: FilledButton.icon(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(
+                  SnackBar(
                     content: Text(
-                      'Создание воспоминания будет добавлено в неделю 3',
+                      strings
+                          .createMemoryComingSoon,
                     ),
                   ),
                 );
               },
-              icon: const Icon(Icons.auto_awesome_outlined),
-              label: const Text('Создать Воспоминание'),
+              icon: const Icon(
+                Icons.auto_awesome_outlined,
+              ),
+              label: Text(
+                strings.createMemoryButton,
+              ),
             ),
           ),
         ],

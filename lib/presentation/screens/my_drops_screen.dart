@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/app_localizations.dart';
 
 import '../providers/drop_providers.dart';
 import '../widgets/animated_favorite_button.dart';
@@ -45,11 +46,12 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
   @override
   Widget build(BuildContext context) {
     final dropsAsync = ref.watch(dropsProvider);
+    final strings = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Мои воспоминания',
+        title: Text(
+          strings.myMemories,
           style: TextStyle(
             fontWeight: FontWeight.w700,
           ),
@@ -73,8 +75,8 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                     size: 56,
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Не удалось загрузить воспоминания',
+                  Text(
+                    strings.loadError,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
@@ -92,7 +94,7 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                       ref.invalidate(dropsProvider);
                     },
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Повторить'),
+                    label: Text(strings.retry),
                   ),
                 ],
               ),
@@ -113,7 +115,7 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
           }).toList();
 
           if (drops.isEmpty) {
-            return const Center(
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -123,7 +125,7 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'Воспоминаний пока нет',
+                    strings.noMemories,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -148,7 +150,7 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                   controller: _searchController,
                   onChanged: _onSearchChanged,
                   decoration: InputDecoration(
-                    hintText: 'Поиск по названию или месту',
+                    hintText: strings.searchHint,
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
@@ -168,7 +170,7 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                 const SizedBox(height: 20),
 
                 if (filteredDrops.isEmpty)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 80),
                     child: Column(
                       children: [
@@ -178,7 +180,7 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          'Ничего не найдено',
+                          strings.nothingFound,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -275,8 +277,8 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                                       const SizedBox(height: 6),
                                       Text(
                                         drop.locked
-                                            ? 'Закрыто'
-                                            : 'Доступно',
+                                            ? strings.locked
+                                            : strings.available, 
                                       ),
                                     ],
                                   ),

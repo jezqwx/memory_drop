@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
 import 'create_drop_screen.dart';
 import 'my_drops_screen.dart';
 import 'profile_screen.dart';
@@ -10,11 +11,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Капсула воспоминаний',
-          style: TextStyle(
+        title: Text(
+          strings.homeTitle,
+          style: const TextStyle(
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -49,28 +52,28 @@ class HomeScreen extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(28),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
+                const Icon(
                   Icons.auto_awesome_outlined,
                   color: Colors.white,
                   size: 32,
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
                 Text(
-                  'Оставь воспоминание где-нибудь в мире.',
-                  style: TextStyle(
+                  strings.homeSubtitle,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                     height: 1.1,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Text(
-                  'Создай скрытое послание и вернись к нему позже.',
-                  style: TextStyle(
+                  strings.homeHeroDescription,
+                  style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 15,
                     height: 1.4,
@@ -80,18 +83,21 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 28),
-          const Text(
-            'Быстрые действия',
-            style: TextStyle(
+
+          Text(
+            strings.quickActions,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
           ),
+
           const SizedBox(height: 14),
+
           _ActionCard(
             icon: Icons.add_location_alt_outlined,
-            title: 'Создать воспоминание',
-            subtitle: 'Оставить новое воспоминание',
+            title: strings.createDrop,
+            subtitle: strings.createDropSubtitle,
             onTap: () {
               Navigator.push(
                 context,
@@ -101,11 +107,13 @@ class HomeScreen extends StatelessWidget {
               );
             },
           ),
+
           const SizedBox(height: 12),
+
           _ActionCard(
             icon: Icons.inventory_2_outlined,
-            title: 'Мои воспоминания',
-            subtitle: 'Просмотреть сохраненные воспоминания',
+            title: strings.myMemories,
+            subtitle: strings.myMemoriesSubtitle,
             onTap: () {
               Navigator.push(
                 context,
@@ -115,11 +123,13 @@ class HomeScreen extends StatelessWidget {
               );
             },
           ),
+
           const SizedBox(height: 12),
+
           _ActionCard(
             icon: Icons.person_outline,
-            title: 'Профиль',
-            subtitle: 'Активность и воспоминания',
+            title: strings.profile,
+            subtitle: strings.profileSubtitle,
             onTap: () {
               Navigator.push(
                 context,
@@ -201,7 +211,10 @@ class _ActionCard extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+            const Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 16,
+            ),
           ],
         ),
       ),

@@ -1,48 +1,54 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Профиль'),
+        title: Text(
+          strings.profileTitle,
+        ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(20),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 45,
               child: Icon(
                 Icons.person,
                 size: 45,
               ),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Gulsezim',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _ProfileStat(
                   number: '3',
-                  label: 'Воспоминания',
+                  label: strings.memoriesCount,
                 ),
                 _ProfileStat(
                   number: '1',
-                  label: 'Открыто',
+                  label: strings.openedCount,
                 ),
                 _ProfileStat(
                   number: '2',
-                  label: 'Заблокировано',
+                  label: strings.lockedCount,
                 ),
               ],
             ),

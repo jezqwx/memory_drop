@@ -1,0 +1,62 @@
+{
+  "@@locale": "en",
+
+  "appName": "Memory Drop",
+  "settings": "Settings",
+  "theme": "Theme",
+  "language": "Language",
+  "systemTheme": "System",
+  "lightTheme": "Light",
+  "darkTheme": "Dark",
+
+  "homeTitle": "Memory Capsule",
+  "homeSubtitle": "Leave a memory somewhere in the world.",
+  "createDrop": "Create memory",
+  "myMemories": "My memories",
+  "profile": "Profile",
+
+  "searchHint": "Search by title or location",
+  "nothingFound": "Nothing found",
+  "noMemories": "No memories yet",
+  "retry": "Retry",
+  "loadError": "Failed to load memories",
+  "locked": "Locked",
+  "available": "Available",
+
+  "dropLockedTitle": "This memory is still locked",
+  "dropLockedText": "To unlock this memory, you need to be near this place.",
+  "dropAvailableTitle": "Memory available",
+  "dropAvailableText": "This memory can already be opened.",
+
+  "createTitle": "Create memory",
+  "titleLabel": "Title",
+  "locationLabel": "Location",
+  "messageLabel": "Message",
+  "save": "Save",
+
+  "profileTitle": "Profile",
+  "nameLabel": "Name",
+
+  "themeSystemSubtitle": "Use device theme",
+  "russian": "Русский",
+  "english": "English",
+
+  "homeHeroDescription": "Create a hidden message and return to it later.",
+"quickActions": "Quick actions",
+"createDropSubtitle": "Leave a new memory",
+"myMemoriesSubtitle": "View saved memories",
+"profileSubtitle": "Activity and memories",
+
+"createDescription": "Write what you want to leave as a memory.",
+"locationComingSoon": "Will be added later",
+"createMemoryButton": "Create memory",
+"createMemoryComingSoon": "Memory creation will be added later",
+
+"memoriesCount": "Memories",
+"openedCount": "Opened",
+"lockedCount": "Locked",
+
+"themeSubtitle": "System, light or dark",
+"languageSubtitle": "Russian / English"
+
+}

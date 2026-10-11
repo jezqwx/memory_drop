@@ -5,6 +5,7 @@ import '../../data/repositories/drop_repository_impl.dart';
 import '../../domain/entities/memory_drop.dart';
 import '../../domain/repositories/drop_repository.dart';
 import 'network_providers.dart';
+import '../../data/local/drop_local_data_source.dart';
 
 final dropRemoteDataSourceProvider =
     Provider<DropRemoteDataSource>((ref) {
@@ -13,12 +14,23 @@ final dropRemoteDataSourceProvider =
   return DropRemoteDataSource(dio);
 });
 
+final dropLocalDataSourceProvider =
+    Provider<DropLocalDataSource>((ref) {
+  return DropLocalDataSource();
+});
+
 final dropRepositoryProvider =
     Provider<DropRepository>((ref) {
   final remoteDataSource =
       ref.read(dropRemoteDataSourceProvider);
 
-  return DropRepositoryImpl(remoteDataSource);
+  final localDataSource =
+      ref.read(dropLocalDataSourceProvider);
+
+  return DropRepositoryImpl(
+    remoteDataSource,
+    localDataSource,
+  );
 });
 
 class DropsNotifier extends AsyncNotifier<List<MemoryDrop>> {
@@ -48,13 +60,27 @@ Future<void> toggleFavorite(MemoryDrop drop) async {
 
   final newFavoriteValue = !drop.isFavorite;
 
+  // Сразу меняем сердечко локально.
+  final optimisticList = currentList.map((item) {
+    if (item.id == drop.id) {
+      return item.copyWith(
+        isFavorite: newFavoriteValue,
+      );
+    }
+
+    return item;
+  }).toList();
+
+  state = AsyncData(optimisticList);
+
   try {
+    // А сервер обновляем уже после этого.
     final updatedDrop = await _repository.updateFavorite(
       id: drop.id,
       isFavorite: newFavoriteValue,
     );
 
-    final updatedList = currentList.map((item) {
+    final updatedList = optimisticList.map((item) {
       if (item.id == updatedDrop.id) {
         return updatedDrop;
       }
@@ -64,8 +90,8 @@ Future<void> toggleFavorite(MemoryDrop drop) async {
 
     state = AsyncData(updatedList);
   } catch (error) {
-    // Если не удалось обновить сердечко,
-    // оставляем текущий список на экране.
+    // Если сервер не смог сохранить —
+    // возвращаем предыдущее состояние.
     state = AsyncData(currentList);
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
+
 class DropDetailsScreen extends StatelessWidget {
   final String title;
   final String location;
@@ -14,6 +16,8 @@ class DropDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -74,44 +78,51 @@ class DropDetailsScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(24),
+                color: Theme.of(context)
+                    .colorScheme
+                    .surface,
+                borderRadius:
+                    BorderRadius.circular(24),
               ),
               child: locked
-                  ? const Column(
+                  ? Column(
                       children: [
                         Text(
-                          'Это воспоминание пока закрыто',
-                          style: TextStyle(
+                          strings.dropLockedTitle,
+                          style: const TextStyle(
                             fontSize: 18,
-                            fontWeight: FontWeight.w700,
+                            fontWeight:
+                                FontWeight.w700,
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
-                          'Чтобы открыть воспоминание, нужно находиться рядом с этим местом.',
-                          textAlign: TextAlign.center,
+                          strings.dropLockedText,
+                          textAlign:
+                              TextAlign.center,
                         ),
                       ],
                     )
-                  : const Column(
+                  : Column(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.auto_awesome,
                           size: 30,
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Text(
-                          'Воспоминание доступно',
-                          style: TextStyle(
+                          strings.dropAvailableTitle,
+                          style: const TextStyle(
                             fontSize: 18,
-                            fontWeight: FontWeight.w700,
+                            fontWeight:
+                                FontWeight.w700,
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
-                          'Это воспоминание уже можно открыть.',
-                          textAlign: TextAlign.center,
+                          strings.dropAvailableText,
+                          textAlign:
+                              TextAlign.center,
                         ),
                       ],
                     ),
