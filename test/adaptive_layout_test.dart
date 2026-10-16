@@ -79,6 +79,36 @@ void main() {
       expect(tester.getSize(constrainedContent).width, lessThanOrEqualTo(800));
       expect(tester.takeException(), isNull);
 
+      if (size.width >= 700) {
+        Future<void> selectRailTab(String label, int index) async {
+          await tester.tap(
+            find.descendant(
+              of: find.byType(NavigationRail),
+              matching: find.text(label),
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(
+            tester
+                .widget<NavigationRail>(find.byType(NavigationRail))
+                .selectedIndex,
+            index,
+          );
+        }
+
+        await selectRailTab('Мои воспоминания', 1);
+        await tester.enterText(find.byType(TextField), 'Очень');
+        await tester.pump(const Duration(milliseconds: 550));
+        await tester.pumpAndSettle();
+        await selectRailTab('Создать', 2);
+        await selectRailTab('Мои воспоминания', 1);
+        expect(
+          tester.widget<TextField>(find.byType(TextField)).controller!.text,
+          'Очень',
+        );
+        expect(tester.takeException(), isNull);
+      }
+
       for (final routeAndScreen in <(String, Type)>[
         ('/drops', MyDropsScreen),
         ('/create', CreateDropScreen),
@@ -147,6 +177,14 @@ void main() {
     router.go('/drops/2');
     await tester.pumpAndSettle();
     expect(find.byType(SingleChildScrollView), findsOneWidget);
+    final scrollable = tester.state<ScrollableState>(find.byType(Scrollable));
+    expect(scrollable.position.maxScrollExtent, greaterThan(0));
+    await tester.drag(
+      find.byType(SingleChildScrollView),
+      const Offset(0, -200),
+    );
+    await tester.pumpAndSettle();
+    expect(scrollable.position.pixels, greaterThan(0));
     expect(tester.takeException(), isNull);
   });
 }

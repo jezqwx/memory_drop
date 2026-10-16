@@ -10,7 +10,7 @@ class _TestDropsNotifier extends DropsNotifier {
   @override
   Future<List<MemoryDrop>> build() async => const [
     MemoryDrop(
-      id: 2,
+      id: 1,
       title: 'Воспоминание об университете',
       location: 'AlmaU',
       locked: false,
@@ -28,7 +28,7 @@ void main() {
     );
     addTearDown(container.dispose);
     final router = container.read(appRouterProvider);
-    router.go('/drops/2');
+    router.go('/drops/1');
 
     await tester.pumpWidget(
       UncontrolledProviderScope(
