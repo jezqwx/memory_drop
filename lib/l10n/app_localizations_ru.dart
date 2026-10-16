@@ -34,10 +34,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeTitle => 'Капсула воспоминаний';
 
   @override
+  String get home => 'Главная';
+
+  @override
   String get homeSubtitle => 'Оставь воспоминание где-нибудь в мире.';
 
   @override
   String get createDrop => 'Создать воспоминание';
+
+  @override
+  String get create => 'Создать';
 
   @override
   String get myMemories => 'Мои воспоминания';

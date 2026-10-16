@@ -146,6 +146,12 @@ abstract class AppLocalizations {
   /// **'Капсула воспоминаний'**
   String get homeTitle;
 
+  /// No description provided for @home.
+  ///
+  /// In ru, this message translates to:
+  /// **'Главная'**
+  String get home;
+
   /// No description provided for @homeSubtitle.
   ///
   /// In ru, this message translates to:
@@ -157,6 +163,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Создать воспоминание'**
   String get createDrop;
+
+  /// No description provided for @create.
+  ///
+  /// In ru, this message translates to:
+  /// **'Создать'**
+  String get create;
 
   /// No description provided for @myMemories.
   ///

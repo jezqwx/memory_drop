@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
             title: strings.createDrop,
             subtitle: strings.createDropSubtitle,
             onTap: () {
-              context.push('/create');
+              context.go('/create');
             },
           ),
 
@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
             title: strings.myMemories,
             subtitle: strings.myMemoriesSubtitle,
             onTap: () {
-              context.push('/drops');
+              context.go('/drops');
             },
           ),
 
@@ -113,7 +113,7 @@ class HomeScreen extends StatelessWidget {
             title: strings.profile,
             subtitle: strings.profileSubtitle,
             onTap: () {
-              context.push('/profile');
+              context.go('/profile');
             },
           ),
         ],

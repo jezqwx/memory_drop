@@ -34,10 +34,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeTitle => 'Memory Capsule';
 
   @override
+  String get home => 'Home';
+
+  @override
   String get homeSubtitle => 'Leave a memory somewhere in the world.';
 
   @override
   String get createDrop => 'Create memory';
+
+  @override
+  String get create => 'Create';
 
   @override
   String get myMemories => 'My memories';

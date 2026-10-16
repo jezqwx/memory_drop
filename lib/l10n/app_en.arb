@@ -10,8 +10,10 @@
   "darkTheme": "Dark",
 
   "homeTitle": "Memory Capsule",
+  "home": "Home",
   "homeSubtitle": "Leave a memory somewhere in the world.",
   "createDrop": "Create memory",
+  "create": "Create",
   "myMemories": "My memories",
   "profile": "Profile",
 
