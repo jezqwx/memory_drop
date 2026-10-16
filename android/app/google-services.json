@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "260895266899",
+    "project_id": "memorydrop-abc69",
+    "storage_bucket": "memorydrop-abc69.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260895266899:android:2ca0c81bf7c7cbc5774ea6",
+        "android_client_info": {
+          "package_name": "com.example.memory_drop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlLR6m3N4rVBvz1TYyuEJm69cUq57b0jA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
