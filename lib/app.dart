@@ -13,6 +13,7 @@ class MemoryDropApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeAsync = ref.watch(themeProvider);
     final languageAsync = ref.watch(languageProvider);
+    final appRouter = ref.watch(appRouterProvider);
 
     final themeMode =
         themeAsync.value ?? ThemeMode.system;

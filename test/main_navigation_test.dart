@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:memory_drop/app.dart';
 import 'package:memory_drop/core/router/app_router.dart';
 import 'package:memory_drop/domain/entities/memory_drop.dart';
+import 'package:memory_drop/presentation/providers/auth_provider.dart';
 import 'package:memory_drop/presentation/providers/drop_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,11 +25,16 @@ void main() {
     'Вкладки сохраняют состояние, детали и настройки открываются поверх',
     (tester) async {
       SharedPreferences.setMockInitialValues({});
-      appRouter.go('/');
+      final container = ProviderContainer(
+        overrides: [dropsProvider.overrideWith(_TestDropsNotifier.new)],
+      );
+      addTearDown(container.dispose);
+      container.read(authProvider.notifier).login();
+      container.read(appRouterProvider).go('/');
 
       await tester.pumpWidget(
-        ProviderScope(
-          overrides: [dropsProvider.overrideWith(_TestDropsNotifier.new)],
+        UncontrolledProviderScope(
+          container: container,
           child: const MemoryDropApp(),
         ),
       );

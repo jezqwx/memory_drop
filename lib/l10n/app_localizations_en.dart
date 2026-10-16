@@ -52,6 +52,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile => 'Profile';
 
   @override
+  String get loginTitle => 'Profile sign in';
+
+  @override
+  String get loginDescription =>
+      'Demo sign in without a password to view your profile.';
+
+  @override
+  String get signIn => 'Sign in';
+
+  @override
+  String get signOut => 'Sign out';
+
+  @override
   String get searchHint => 'Search by title or location';
 
   @override

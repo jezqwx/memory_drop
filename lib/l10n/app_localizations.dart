@@ -182,6 +182,30 @@ abstract class AppLocalizations {
   /// **'Профиль'**
   String get profile;
 
+  /// No description provided for @loginTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вход в профиль'**
+  String get loginTitle;
+
+  /// No description provided for @loginDescription.
+  ///
+  /// In ru, this message translates to:
+  /// **'Демо-вход без пароля для просмотра профиля.'**
+  String get loginDescription;
+
+  /// No description provided for @signIn.
+  ///
+  /// In ru, this message translates to:
+  /// **'Войти'**
+  String get signIn;
+
+  /// No description provided for @signOut.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти'**
+  String get signOut;
+
   /// No description provided for @searchHint.
   ///
   /// In ru, this message translates to:

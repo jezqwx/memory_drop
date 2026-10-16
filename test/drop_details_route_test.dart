@@ -23,11 +23,16 @@ void main() {
     tester,
   ) async {
     SharedPreferences.setMockInitialValues({});
-    appRouter.go('/drops/2');
+    final container = ProviderContainer(
+      overrides: [dropsProvider.overrideWith(_TestDropsNotifier.new)],
+    );
+    addTearDown(container.dispose);
+    final router = container.read(appRouterProvider);
+    router.go('/drops/2');
 
     await tester.pumpWidget(
-      ProviderScope(
-        overrides: [dropsProvider.overrideWith(_TestDropsNotifier.new)],
+      UncontrolledProviderScope(
+        container: container,
         child: const MemoryDropApp(),
       ),
     );
@@ -36,11 +41,11 @@ void main() {
     expect(find.text('Воспоминание об университете'), findsOneWidget);
     expect(find.text('AlmaU'), findsOneWidget);
 
-    appRouter.go('/drops/999');
+    router.go('/drops/999');
     await tester.pumpAndSettle();
     expect(find.text('Воспоминание не найдено'), findsOneWidget);
 
-    appRouter.go('/drops/invalid');
+    router.go('/drops/invalid');
     await tester.pumpAndSettle();
     expect(find.text('Воспоминание не найдено'), findsOneWidget);
   });

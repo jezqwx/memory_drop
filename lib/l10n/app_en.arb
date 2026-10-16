@@ -16,6 +16,10 @@
   "create": "Create",
   "myMemories": "My memories",
   "profile": "Profile",
+  "loginTitle": "Profile sign in",
+  "loginDescription": "Demo sign in without a password to view your profile.",
+  "signIn": "Sign in",
+  "signOut": "Sign out",
 
   "searchHint": "Search by title or location",
   "nothingFound": "Nothing found",

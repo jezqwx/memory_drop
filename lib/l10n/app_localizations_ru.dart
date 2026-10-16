@@ -52,6 +52,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profile => 'Профиль';
 
   @override
+  String get loginTitle => 'Вход в профиль';
+
+  @override
+  String get loginDescription => 'Демо-вход без пароля для просмотра профиля.';
+
+  @override
+  String get signIn => 'Войти';
+
+  @override
+  String get signOut => 'Выйти';
+
+  @override
   String get searchHint => 'Поиск по названию или месту';
 
   @override
