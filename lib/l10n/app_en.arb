@@ -20,6 +20,7 @@
   "noMemories": "No memories yet",
   "retry": "Retry",
   "loadError": "Failed to load memories",
+  "dropNotFound": "Memory not found",
   "locked": "Locked",
   "available": "Available",
 

@@ -61,6 +61,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loadError => 'Failed to load memories';
 
   @override
+  String get dropNotFound => 'Memory not found';
+
+  @override
   String get locked => 'Locked';
 
   @override

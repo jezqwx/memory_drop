@@ -200,6 +200,12 @@ abstract class AppLocalizations {
   /// **'Не удалось загрузить воспоминания'**
   String get loadError;
 
+  /// No description provided for @dropNotFound.
+  ///
+  /// In ru, this message translates to:
+  /// **'Воспоминание не найдено'**
+  String get dropNotFound;
+
   /// No description provided for @locked.
   ///
   /// In ru, this message translates to:

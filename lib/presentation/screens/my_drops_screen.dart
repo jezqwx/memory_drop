@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../l10n/app_localizations.dart';
 
 import '../providers/drop_providers.dart';
 import '../widgets/animated_favorite_button.dart';
-import 'drop_details_screen.dart';
 
 class MyDropsScreen extends ConsumerStatefulWidget {
   const MyDropsScreen({super.key});
@@ -206,17 +206,7 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                           borderRadius:
                               BorderRadius.circular(24),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) =>
-                                    DropDetailsScreen(
-                                  title: drop.title,
-                                  location: drop.location,
-                                  locked: drop.locked,
-                                ),
-                              ),
-                            );
+                            context.push('/drops/${drop.id}');
                           },
                           child: Ink(
                             padding: const EdgeInsets.all(18),

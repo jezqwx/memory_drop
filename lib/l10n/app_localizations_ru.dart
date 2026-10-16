@@ -61,6 +61,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loadError => 'Не удалось загрузить воспоминания';
 
   @override
+  String get dropNotFound => 'Воспоминание не найдено';
+
+  @override
   String get locked => 'Закрыто';
 
   @override
