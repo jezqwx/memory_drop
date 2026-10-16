@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
 import 'presentation/providers/settings_providers.dart';
-import 'presentation/screens/home_screen.dart';
 
 class MemoryDropApp extends ConsumerWidget {
   const MemoryDropApp({super.key});
@@ -20,7 +20,7 @@ class MemoryDropApp extends ConsumerWidget {
     final languageCode =
         languageAsync.value ?? 'ru';
 
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
 
       locale: Locale(languageCode),
@@ -35,7 +35,7 @@ class MemoryDropApp extends ConsumerWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
 
-      home: const HomeScreen(),
+      routerConfig: appRouter,
     );
   }
 }

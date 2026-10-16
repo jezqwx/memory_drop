@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
-import 'create_drop_screen.dart';
-import 'my_drops_screen.dart';
-import 'profile_screen.dart';
-import 'settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,12 +22,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const SettingsScreen(),
-                ),
-              );
+              context.push('/settings');
             },
           ),
           const SizedBox(width: 8),
@@ -99,12 +91,7 @@ class HomeScreen extends StatelessWidget {
             title: strings.createDrop,
             subtitle: strings.createDropSubtitle,
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const CreateDropScreen(),
-                ),
-              );
+              context.push('/create');
             },
           ),
 
@@ -115,12 +102,7 @@ class HomeScreen extends StatelessWidget {
             title: strings.myMemories,
             subtitle: strings.myMemoriesSubtitle,
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const MyDropsScreen(),
-                ),
-              );
+              context.push('/drops');
             },
           ),
 
@@ -131,12 +113,7 @@ class HomeScreen extends StatelessWidget {
             title: strings.profile,
             subtitle: strings.profileSubtitle,
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const ProfileScreen(),
-                ),
-              );
+              context.push('/profile');
             },
           ),
         ],
