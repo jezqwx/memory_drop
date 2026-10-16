@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
+import '../widgets/adaptive_content.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -13,9 +14,10 @@ class ProfileScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(strings.profileTitle)),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
+      body: AdaptiveContent(
+        maxWidth: 700,
+        child: ListView(
+          padding: const EdgeInsets.all(20),
           children: [
             const CircleAvatar(radius: 45, child: Icon(Icons.person, size: 45)),
             const SizedBox(height: 16),
@@ -24,19 +26,38 @@ class ProfileScreen extends ConsumerWidget {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _ProfileStat(number: '3', label: strings.memoriesCount),
-                _ProfileStat(number: '1', label: strings.openedCount),
-                _ProfileStat(number: '2', label: strings.lockedCount),
-              ],
+            LayoutBuilder(
+              builder: (context, constraints) => Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 16,
+                runSpacing: 20,
+                children:
+                    [
+                          _ProfileStat(
+                            number: '3',
+                            label: strings.memoriesCount,
+                          ),
+                          _ProfileStat(number: '1', label: strings.openedCount),
+                          _ProfileStat(number: '2', label: strings.lockedCount),
+                        ]
+                        .map(
+                          (stat) => SizedBox(
+                            width: constraints.maxWidth >= 420
+                                ? (constraints.maxWidth - 32) / 3
+                                : 128,
+                            child: stat,
+                          ),
+                        )
+                        .toList(),
+              ),
             ),
             const SizedBox(height: 32),
-            OutlinedButton.icon(
-              onPressed: () => ref.read(authProvider.notifier).logout(),
-              icon: const Icon(Icons.logout_rounded),
-              label: Text(strings.signOut),
+            Center(
+              child: OutlinedButton.icon(
+                onPressed: () => ref.read(authProvider.notifier).logout(),
+                icon: const Icon(Icons.logout_rounded),
+                label: Text(strings.signOut),
+              ),
             ),
           ],
         ),
@@ -59,7 +80,7 @@ class _ProfileStat extends StatelessWidget {
           number,
           style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        Text(label),
+        Text(label, textAlign: TextAlign.center),
       ],
     );
   }

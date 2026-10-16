@@ -24,6 +24,8 @@ void main() {
   testWidgets(
     'Вкладки сохраняют состояние, детали и настройки открываются поверх',
     (tester) async {
+      await tester.binding.setSurfaceSize(const Size(390, 844));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
       SharedPreferences.setMockInitialValues({});
       final container = ProviderContainer(
         overrides: [dropsProvider.overrideWith(_TestDropsNotifier.new)],

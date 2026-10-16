@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../l10n/app_localizations.dart';
 
 import '../providers/drop_providers.dart';
 import '../widgets/animated_favorite_button.dart';
+import '../widgets/adaptive_content.dart';
 
 class MyDropsScreen extends ConsumerStatefulWidget {
   const MyDropsScreen({super.key});
@@ -16,8 +18,7 @@ class MyDropsScreen extends ConsumerStatefulWidget {
 }
 
 class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
-  final TextEditingController _searchController =
-      TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   Timer? _debounce;
 
@@ -33,14 +34,11 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
   void _onSearchChanged(String value) {
     _debounce?.cancel();
 
-    _debounce = Timer(
-      const Duration(milliseconds: 500),
-      () {
-        setState(() {
-          _searchQuery = value.trim().toLowerCase();
-        });
-      },
-    );
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      setState(() {
+        _searchQuery = value.trim().toLowerCase();
+      });
+    });
   }
 
   @override
@@ -52,52 +50,44 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
       appBar: AppBar(
         title: Text(
           strings.myMemories,
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w700),
         ),
       ),
       body: dropsAsync.when(
         loading: () {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         },
         error: (error, stackTrace) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.wifi_off_rounded,
-                    size: 56,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    strings.loadError,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
+          return AdaptiveContent(
+            child: ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                const SizedBox(height: 16),
+                Column(
+                  children: [
+                    const Icon(Icons.wifi_off_rounded, size: 56),
+                    const SizedBox(height: 16),
+                    Text(
+                      strings.loadError,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    error.toString(),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-                  FilledButton.icon(
-                    onPressed: () {
-                      ref.invalidate(dropsProvider);
-                    },
-                    icon: const Icon(Icons.refresh),
-                    label: Text(strings.retry),
-                  ),
-                ],
-              ),
+                    const SizedBox(height: 8),
+                    Text(error.toString(), textAlign: TextAlign.center),
+                    const SizedBox(height: 20),
+                    FilledButton.icon(
+                      onPressed: () {
+                        ref.invalidate(dropsProvider);
+                      },
+                      icon: const Icon(Icons.refresh),
+                      label: Text(strings.retry),
+                    ),
+                  ],
+                ),
+              ],
             ),
           );
         },
@@ -115,107 +105,88 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
           }).toList();
 
           if (drops.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+            return AdaptiveContent(
+              child: ListView(
+                padding: const EdgeInsets.all(20),
                 children: [
-                  Icon(
-                    Icons.inbox_outlined,
-                    size: 56,
-                  ),
+                  Icon(Icons.inbox_outlined, size: 56),
                   SizedBox(height: 16),
                   Text(
                     strings.noMemories,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
             );
           }
 
-          return RefreshIndicator(
-            onRefresh: () async {
-              await ref
-                  .read(dropsProvider.notifier)
-                  .refreshDrops();
-            },
-            child: ListView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(20),
-              children: [
-                TextField(
-                  controller: _searchController,
-                  onChanged: _onSearchChanged,
-                  decoration: InputDecoration(
-                    hintText: strings.searchHint,
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: _searchController.text.isNotEmpty
-                        ? IconButton(
-                            onPressed: () {
-                              _searchController.clear();
+          return AdaptiveContent(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await ref.read(dropsProvider.notifier).refreshDrops();
+              },
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(20),
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    onChanged: _onSearchChanged,
+                    decoration: InputDecoration(
+                      hintText: strings.searchHint,
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: _searchController.text.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                _searchController.clear();
 
-                              setState(() {
-                                _searchQuery = '';
-                              });
-                            },
-                            icon: const Icon(Icons.close),
-                          )
-                        : null,
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                if (filteredDrops.isEmpty)
-                  Padding(
-                    padding: EdgeInsets.only(top: 80),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.search_off_rounded,
-                          size: 56,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          strings.nothingFound,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
+                                setState(() {
+                                  _searchQuery = '';
+                                });
+                              },
+                              icon: const Icon(Icons.close),
+                            )
+                          : null,
                     ),
-                  )
-                else
-                  ...List.generate(
-                    filteredDrops.length,
-                    (index) {
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  if (filteredDrops.isEmpty)
+                    Padding(
+                      padding: EdgeInsets.only(top: 80),
+                      child: Column(
+                        children: [
+                          Icon(Icons.search_off_rounded, size: 56),
+                          SizedBox(height: 16),
+                          Text(
+                            strings.nothingFound,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  else
+                    ...List.generate(filteredDrops.length, (index) {
                       final drop = filteredDrops[index];
 
                       return Padding(
                         padding: EdgeInsets.only(
-                          bottom: index ==
-                                  filteredDrops.length - 1
-                              ? 0
-                              : 14,
+                          bottom: index == filteredDrops.length - 1 ? 0 : 14,
                         ),
                         child: InkWell(
-                          borderRadius:
-                              BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(24),
                           onTap: () {
                             context.push('/drops/${drop.id}');
                           },
                           child: Ink(
                             padding: const EdgeInsets.all(18),
                             decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surface,
-                              borderRadius:
-                                  BorderRadius.circular(24),
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.circular(24),
                             ),
                             child: Row(
                               children: [
@@ -225,13 +196,12 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                                   decoration: BoxDecoration(
                                     color: drop.locked
                                         ? Theme.of(context)
-                                            .colorScheme
-                                            .secondaryContainer
+                                              .colorScheme
+                                              .secondaryContainer
                                         : Theme.of(context)
-                                            .colorScheme
-                                            .primaryContainer,
-                                    borderRadius:
-                                        BorderRadius.circular(18),
+                                              .colorScheme
+                                              .primaryContainer,
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
                                   child: Icon(
                                     drop.locked
@@ -247,10 +217,11 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                                     children: [
                                       Text(
                                         drop.title,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                           fontSize: 16,
-                                          fontWeight:
-                                              FontWeight.w700,
+                                          fontWeight: FontWeight.w700,
                                         ),
                                       ),
                                       const SizedBox(height: 6),
@@ -261,26 +232,31 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                                             size: 16,
                                           ),
                                           const SizedBox(width: 4),
-                                          Text(drop.location),
+                                          Flexible(
+                                            child: Text(
+                                              drop.location,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       const SizedBox(height: 6),
                                       Text(
                                         drop.locked
                                             ? strings.locked
-                                            : strings.available, 
+                                            : strings.available,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),
                                 ),
                                 AnimatedFavoriteButton(
-                                  isFavorite:
-                                      drop.isFavorite,
+                                  isFavorite: drop.isFavorite,
                                   onPressed: () {
                                     ref
-                                        .read(
-                                          dropsProvider.notifier,
-                                        )
+                                        .read(dropsProvider.notifier)
                                         .toggleFavorite(drop);
                                   },
                                 ),
@@ -289,9 +265,9 @@ class _MyDropsScreenState extends ConsumerState<MyDropsScreen> {
                           ),
                         ),
                       );
-                    },
-                  ),
-              ],
+                    }),
+                ],
+              ),
             ),
           );
         },

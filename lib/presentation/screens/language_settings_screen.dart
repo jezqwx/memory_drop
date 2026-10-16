@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../providers/settings_providers.dart';
+import '../widgets/adaptive_content.dart';
 
 class LanguageSettingsScreen extends ConsumerWidget {
   const LanguageSettingsScreen({super.key});
@@ -15,30 +16,22 @@ class LanguageSettingsScreen extends ConsumerWidget {
     final strings = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(strings.language),
-      ),
-      body: RadioGroup<String>(
-        groupValue: currentLanguage,
-        onChanged: (value) {
-          if (value != null) {
-            ref
-                .read(languageProvider.notifier)
-                .setLanguage(value);
-          }
-        },
-        child: ListView(
-          padding: const EdgeInsets.all(20),
-          children: const [
-            RadioListTile<String>(
-              title: Text('Русский'),
-              value: 'ru',
-            ),
-            RadioListTile<String>(
-              title: Text('English'),
-              value: 'en',
-            ),
-          ],
+      appBar: AppBar(title: Text(strings.language)),
+      body: AdaptiveContent(
+        child: RadioGroup<String>(
+          groupValue: currentLanguage,
+          onChanged: (value) {
+            if (value != null) {
+              ref.read(languageProvider.notifier).setLanguage(value);
+            }
+          },
+          child: ListView(
+            padding: const EdgeInsets.all(20),
+            children: const [
+              RadioListTile<String>(title: Text('Русский'), value: 'ru'),
+              RadioListTile<String>(title: Text('English'), value: 'en'),
+            ],
+          ),
         ),
       ),
     );

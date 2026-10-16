@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../widgets/adaptive_content.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,9 +15,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           strings.homeTitle,
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.w700),
         ),
         actions: [
           IconButton(
@@ -28,95 +27,91 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(width: 8),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
-        children: [
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF6C63FF),
-                  Color(0xFF8B7CFF),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+      body: AdaptiveContent(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+          children: [
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF6C63FF), Color(0xFF8B7CFF)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(28),
               ),
-              borderRadius: BorderRadius.circular(28),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(
-                  Icons.auto_awesome_outlined,
-                  color: Colors.white,
-                  size: 32,
-                ),
-                const SizedBox(height: 28),
-                Text(
-                  strings.homeSubtitle,
-                  style: const TextStyle(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.auto_awesome_outlined,
                     color: Colors.white,
-                    fontSize: 30,
-                    height: 1.1,
-                    fontWeight: FontWeight.w700,
+                    size: 32,
                   ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  strings.homeHeroDescription,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 15,
-                    height: 1.4,
+                  const SizedBox(height: 28),
+                  Text(
+                    strings.homeSubtitle,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      height: 1.1,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  Text(
+                    strings.homeHeroDescription,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 15,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 28),
+            const SizedBox(height: 28),
 
-          Text(
-            strings.quickActions,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
+            Text(
+              strings.quickActions,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
             ),
-          ),
 
-          const SizedBox(height: 14),
+            const SizedBox(height: 14),
 
-          _ActionCard(
-            icon: Icons.add_location_alt_outlined,
-            title: strings.createDrop,
-            subtitle: strings.createDropSubtitle,
-            onTap: () {
-              context.go('/create');
-            },
-          ),
+            _ActionCard(
+              icon: Icons.add_location_alt_outlined,
+              title: strings.createDrop,
+              subtitle: strings.createDropSubtitle,
+              onTap: () {
+                context.go('/create');
+              },
+            ),
 
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-          _ActionCard(
-            icon: Icons.inventory_2_outlined,
-            title: strings.myMemories,
-            subtitle: strings.myMemoriesSubtitle,
-            onTap: () {
-              context.go('/drops');
-            },
-          ),
+            _ActionCard(
+              icon: Icons.inventory_2_outlined,
+              title: strings.myMemories,
+              subtitle: strings.myMemoriesSubtitle,
+              onTap: () {
+                context.go('/drops');
+              },
+            ),
 
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-          _ActionCard(
-            icon: Icons.person_outline,
-            title: strings.profile,
-            subtitle: strings.profileSubtitle,
-            onTap: () {
-              context.go('/profile');
-            },
-          ),
-        ],
+            _ActionCard(
+              icon: Icons.person_outline,
+              title: strings.profile,
+              subtitle: strings.profileSubtitle,
+              onTap: () {
+                context.go('/profile');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -152,16 +147,12 @@ class _ActionCard extends StatelessWidget {
               width: 52,
               height: 52,
               decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .colorScheme
-                    .primaryContainer,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Icon(
                 icon,
-                color: Theme.of(context)
-                    .colorScheme
-                    .onPrimaryContainer,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
               ),
             ),
             const SizedBox(width: 16),
@@ -180,18 +171,13 @@ class _ActionCard extends StatelessWidget {
                   Text(
                     subtitle,
                     style: TextStyle(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurfaceVariant,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 16,
-            ),
+            const Icon(Icons.arrow_forward_ios_rounded, size: 16),
           ],
         ),
       ),
